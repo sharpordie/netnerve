@@ -1,20 +1,20 @@
 name: netnerve
 description: Fancy network flutter library
-version: 0.2.0
+version: 0.2.1
 
 environment:
   sdk: ">=2.19.5 <3.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
-  dio: ^5.1.1
   flutter:
     sdk: flutter
-  path: ^1.8.2
-  path_provider: ^2.0.14
+  dio:
   flutter_inappwebview: ^6.0.0-beta.22
-  path_provider_platform_interface: ^2.0.6
-  plugin_platform_interface: ^2.1.4
+  path_provider_platform_interface:
+  path_provider:
+  path:
+  plugin_platform_interface:
 
 dev_dependencies:
   flutter_test:
