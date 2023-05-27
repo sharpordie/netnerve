@@ -1,6 +1,6 @@
 name: netnerve
 description: Fancy network flutter library
-version: 0.2.1
+version: 0.2.2
 
 environment:
   sdk: ">=3.0.2 <4.0.0"
