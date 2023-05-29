@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
@@ -17,6 +18,24 @@ Future<File?> getFromAddress(String address) async {
   } on Exception {
     return null;
   }
+}
+
+Future<File?> getFromAndroidfilehost(String address) async {
+  String payload;
+  URLRequest startup;
+  final browser = HeadlessInAppWebView();
+  await browser.dispose();
+  await browser.run();
+  startup = URLRequest(url: WebUri(address));
+  await browser.webViewController.clearCache();
+  await browser.webViewController.loadUrl(urlRequest: startup);
+  await Future.delayed(const Duration(seconds: 6));
+  payload = "document.querySelector('#loadMirror').click();";
+  await browser.webViewController.evaluateJavascript(source: payload);
+  await Future.delayed(const Duration(seconds: 10));
+  payload = "document.querySelector('#mirrors > a').href;";
+  address = await browser.webViewController.evaluateJavascript(source: payload);
+  return await getFromAddress(address);
 }
 
 Future<File?> getFromDropbox(String address) async {
