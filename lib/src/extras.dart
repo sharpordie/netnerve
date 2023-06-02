@@ -1,9 +1,7 @@
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 /// ...
-Future<String?> getTokenForRealdebrid(
-  ({String username, String password}) private,
-) async {
+Future<String?> getTokenForRealdebrid(({String username, String password}) private) async {
   String payload;
   URLRequest startup;
   final browser = HeadlessInAppWebView();
@@ -37,10 +35,7 @@ Future<String?> getTokenForRealdebrid(
 }
 
 /// ...
-Future<bool> setPairForRealdebrid(
-  ({String username, String password}) private,
-  String pincode,
-) async {
+Future<bool> setPairForRealdebrid(({String username, String password}) private, String pincode) async {
   if (pincode.length != 8) return false;
   String payload;
   URLRequest startup;
@@ -74,23 +69,20 @@ Future<bool> setPairForRealdebrid(
   await Future.delayed(const Duration(seconds: 4));
   payload = "document.querySelector('body > div > div > div:nth-child(2) > div > div.panel-body > form > fieldset > div.pull-right > input').click();";
   await browser.webViewController.evaluateJavascript(source: payload);
+  await Future.delayed(const Duration(seconds: 4));
+  payload = "document.querySelector('body > div > div > div:nth-child(2) > div > div.panel-body > form > fieldset > input.btn.btn-lg.btn-success.btn-block').click();";
+  await browser.webViewController.evaluateJavascript(source: payload);
   await Future.delayed(const Duration(seconds: 6));
   return true;
 }
 
 /// ...
-Future<bool> setPairForSpotify(
-  ({String username, String password}) private,
-  String pincode,
-) async {
+Future<bool> setPairForSpotify(({String username, String password}) private, String pincode) async {
   throw UnimplementedError();
 }
 
 /// ...
-Future<bool> setPairForTrakt(
-  ({String username, String password}) private,
-  String pincode,
-) async {
+Future<bool> setPairForTrakt(({String username, String password}) private, String pincode) async {
   if (pincode.length != 8) return false;
   String address;
   String payload;
@@ -141,9 +133,6 @@ Future<bool> setPairForTrakt(
 }
 
 /// ...
-Future<bool> setPairForYoutube(
-    ({String username, String password}) private,
-    String pincode,
-    ) async {
+Future<bool> setPairForYoutube(({String username, String password}) private, String pincode) async {
   throw UnimplementedError();
 }
