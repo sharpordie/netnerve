@@ -27,14 +27,15 @@ Future<File?> getFromAndroidfilehost(String address) async {
   await browser.dispose();
   await browser.run();
   startup = URLRequest(url: WebUri(address));
-  await browser.webViewController.clearCache();
-  await browser.webViewController.loadUrl(urlRequest: startup);
+  await browser.webViewController?.clearCache();
+  await browser.webViewController?.loadUrl(urlRequest: startup);
   await Future.delayed(const Duration(seconds: 6));
   payload = "document.querySelector('#loadMirror').click();";
-  await browser.webViewController.evaluateJavascript(source: payload);
+  await browser.webViewController?.evaluateJavascript(source: payload);
   await Future.delayed(const Duration(seconds: 10));
   payload = "document.querySelector('#mirrors > a').href;";
-  address = await browser.webViewController.evaluateJavascript(source: payload);
+  address =
+      await browser.webViewController?.evaluateJavascript(source: payload);
   return await getFromAddress(address);
 }
 
@@ -50,7 +51,8 @@ Future<File?> getFromGithub(String address, RegExp pattern) async {
   final content = await (await fetcher.get(address)).data;
   final results = content['assets'];
   final factors = results.map((x) => x['browser_download_url']).toList();
-  final element = factors.firstWhere((x) => pattern.hasMatch(x.toString()), orElse: () => null);
+  final element = factors.firstWhere((x) => pattern.hasMatch(x.toString()),
+      orElse: () => null);
   if (element == null) return null;
   return await getFromAddress(element);
 }
